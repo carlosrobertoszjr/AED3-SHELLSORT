@@ -217,7 +217,6 @@ AppPackages/
 !*.[Cc]ache/
 
 # Others
-ClientBin/
 [Ss]tyle[Cc]op.*
 ~$*
 *~

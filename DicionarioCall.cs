@@ -4,12 +4,14 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Accessibility;
 using shellsort_project.Utils;
 
 namespace shellsort_project
 {
     internal class DicionarioCall
     {
+
         static BubbleSort bubbleSort = new BubbleSort();
 
         static ShellSort shellSort = new ShellSort();
@@ -62,70 +64,154 @@ namespace shellsort_project
             }
             else
             {
+                string[] array_paralvas = word.Split(" ");
 
-                //Algoritmo para adicionar uma palavra no vetor, faz uma nova instância de um vetor com o tamanho do vetor antigo + 1 e faz a palavra digitada ir para 
-                //a próxima posição do vetor, também adiciona no diciónario em memória 
-                if (words.Length == 0)
+                if (array_paralvas.Length > 1)
                 {
-                    words = new string[1];
+                    for (int i =0; i < array_paralvas.Length; i++) {
+                        word = array_paralvas[i];
 
-                    words[0] = word;
+                        //Algoritmo para adicionar uma palavra no vetor, faz uma nova instância de um vetor com o tamanho do vetor antigo + 1 e faz a palavra digitada ir para 
+                        //a próxima posição do vetor, também adiciona no diciónario em memória 
+                        if (words.Length == 0)
+                        {
+                            words = new string[1];
+
+                            words[0] = word;
+                        }
+                        else
+                        {
+                            wordsPlaceHolder = new string[words.Length];
+                            for (int u = 0; u < words.Length; u++)
+                            {
+
+                                wordsPlaceHolder[u] = words[u];
+                            }
+                            words = new string[words.Length + 1];
+                            for (int u = 0; u < wordsPlaceHolder.Length; u++)
+                            {
+                                words[u] = wordsPlaceHolder[u];
+                            }
+                            words[words.Length - 1] = word;
+
+                        }
+                        dictionaryPlaceHolder.Add(word);
+
+                        Console.WriteLine("Palavra Adicionada");
+
+                    }
+
+                    //Começa o tempo para ordena~r as palavras e escrever no dicionario
+                    //Realiza as funções de ordenação, dependendo da opção escolhida ira utilizar um algoritmo diferente
+                    if (opcao == "B")
+                    {
+                        tempo.Start();
+                        string[] bubbleSortArray = bubbleSort.bubbleSort(words);
+                        tempo.Stop();
+                        arquivoWriter.write(bubbleSortArray);
+
+                    }
+                    else if (opcao == "S")
+                    {
+                        tempo.Start();
+                        string[] shellSortArray = shellSort.shellSort(words);
+                        tempo.Stop();
+                        arquivoWriter.write(shellSortArray);
+
+                    }
+
+                    string tempoTotal = "";
+
+                    //MessageBox.Show(tempo.Elapsed);
+                    //int tempoContado = tempo.Elapsed.Milliseconds;
+                    if (tempo.Elapsed.Milliseconds.ToString().Length == 1)
+                    {
+                        tempoTotal = tempo.Elapsed.Minutes.ToString() + ":" + tempo.Elapsed.Seconds.ToString() + ":00" + tempo.Elapsed.Milliseconds.ToString();
+                    }
+                    else if (tempo.Elapsed.Milliseconds.ToString().Length == 2)
+                    {
+                        tempoTotal = tempo.Elapsed.Minutes.ToString() + ":" + tempo.Elapsed.Seconds.ToString() + ":0" + tempo.Elapsed.Milliseconds.ToString();
+                    }
+                    else
+                    {
+                        tempoTotal = tempo.Elapsed.Minutes.ToString() + ":" + tempo.Elapsed.Seconds.ToString() + ":" + tempo.Elapsed.Milliseconds.ToString();
+                    }
+                    //Console.WriteLine(tempoTotal);
+                    tempoTotal = tempo.Elapsed.ToString();
+                    return tempoTotal;
+
+                } else {
+                    //Algoritmo para adicionar uma palavra no vetor, faz uma nova instância de um vetor com o tamanho do vetor antigo + 1 e faz a palavra digitada ir para 
+                    //a próxima posição do vetor, também adiciona no diciónario em memória 
+                    if (words.Length == 0)
+                    {
+                        words = new string[1];
+
+                        words[0] = word;
+                    }
+                    else
+                    {
+                        wordsPlaceHolder = new string[words.Length];
+                        for (int i = 0; i < words.Length; i++)
+                        {
+
+                            wordsPlaceHolder[i] = words[i];
+                        }
+                        words = new string[words.Length + 1];
+                        for (int i = 0; i < wordsPlaceHolder.Length; i++)
+                        {
+                            words[i] = wordsPlaceHolder[i];
+                        }
+                        words[words.Length - 1] = word;
+
+                    }
+                    dictionaryPlaceHolder.Add(word);
+
+                    Console.WriteLine("Palavra Adicionada");
+
+                }
+
+                //Começa o tempo para ordena~r as palavras e escrever no dicionario
+                //Realiza as funções de ordenação, dependendo da opção escolhida ira utilizar um algoritmo diferente
+                if (opcao == "B")
+                {
+                    tempo.Start();
+                    string[] bubbleSortArray = bubbleSort.bubbleSort(words);
+                    tempo.Stop();
+                    arquivoWriter.write(bubbleSortArray);
+
+                }
+                else if (opcao == "S")
+                {
+                    tempo.Start();
+                    string[] shellSortArray = shellSort.shellSort(words);
+                    tempo.Stop();
+                    arquivoWriter.write(shellSortArray);
+
+                }
+
+                string tempoTotal2 = "";
+
+                //MessageBox.Show(tempo.Elapsed);
+                //int tempoContado = tempo.Elapsed.Milliseconds;
+                if (tempo.Elapsed.Milliseconds.ToString().Length == 1)
+                {
+                    tempoTotal2 = tempo.Elapsed.Minutes.ToString() + ":" + tempo.Elapsed.Seconds.ToString() + ":00" + tempo.Elapsed.Milliseconds.ToString();
+                }
+                else if (tempo.Elapsed.Milliseconds.ToString().Length == 2)
+                {
+                    tempoTotal2 = tempo.Elapsed.Minutes.ToString() + ":" + tempo.Elapsed.Seconds.ToString() + ":0" + tempo.Elapsed.Milliseconds.ToString();
                 }
                 else
                 {
-                    wordsPlaceHolder = new string[words.Length];
-                    for (int i = 0; i < words.Length; i++)
-                    {
-
-                        wordsPlaceHolder[i] = words[i];
-                    }
-                    words = new string[words.Length + 1];
-                    for (int i = 0; i < wordsPlaceHolder.Length; i++)
-                    {
-                        words[i] = wordsPlaceHolder[i];
-                    }
-                    words[words.Length - 1] = word;
-
+                    tempoTotal2 = tempo.Elapsed.Minutes.ToString() + ":" + tempo.Elapsed.Seconds.ToString() + ":" + tempo.Elapsed.Milliseconds.ToString();
                 }
-                dictionaryPlaceHolder.Add(word);
-
-                Console.WriteLine("Palavra Adicionada");
-
+                //Console.WriteLine(tempoTotal);
+                tempoTotal2 = tempo.Elapsed.ToString();
+                return tempoTotal2;
             }
 
-            //Começa o tempo para ordena~r as palavras e escrever no dicionario
-            //Realiza as funções de ordenação, dependendo da opção escolhida ira utilizar um algoritmo diferente
-            if (opcao == "B")
-            {
-                tempo.Start();
-                string[] bubbleSortArray = bubbleSort.bubbleSort(words);
-                tempo.Stop();
-                arquivoWriter.write(bubbleSortArray);
-
-            }
-            else if (opcao == "S")
-            {
-                tempo.Start();
-                string[] shellSortArray = shellSort.shellSort(words);
-                tempo.Stop();
-                arquivoWriter.write(shellSortArray);
-
-            }
-
-            string tempoTotal = "";
-
-            //MessageBox.Show(tempo.Elapsed);
-            //int tempoContado = tempo.Elapsed.Milliseconds;
-            if (tempo.Elapsed.Milliseconds.ToString().Length == 1) {
-                tempoTotal = tempo.Elapsed.Minutes.ToString() + ":" + tempo.Elapsed.Seconds.ToString() + ":00" + tempo.Elapsed.Milliseconds.ToString();
-            } else if (tempo.Elapsed.Milliseconds.ToString().Length == 2) {
-                tempoTotal = tempo.Elapsed.Minutes.ToString() + ":" + tempo.Elapsed.Seconds.ToString() + ":0" + tempo.Elapsed.Milliseconds.ToString();
-            } else {
-                tempoTotal = tempo.Elapsed.Minutes.ToString() + ":" + tempo.Elapsed.Seconds.ToString() + ":" + tempo.Elapsed.Milliseconds.ToString();
-            }
-            //Console.WriteLine(tempoTotal);
-            tempoTotal = tempo.Elapsed.ToString();
-            return tempoTotal;
+                
         }
         //Função para converter list para array
         public static string[] stringListToStringArray(List<string> dictionaryArchive)
