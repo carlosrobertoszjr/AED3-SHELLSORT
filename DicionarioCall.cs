@@ -25,9 +25,18 @@ namespace shellsort_project
             //Inicializa variável para contar o tempo
             var tempo = new Stopwatch();
 
-            //Ler o arquivo e transforma em uma lista
-            List<string> dictionary = arquivoReader.reader();
+            List<string> dictionary = new List<string>();
 
+            try
+            {
+                //Ler o arquivo e transforma em uma lista
+                dictionary = arquivoReader.reader();
+            }
+            catch(IOException io)
+            {
+                StreamWriter sw = new StreamWriter("Dicionario.txt");
+
+            }
             //Instancia uma lista para guardar em memória o que o usuário está colocando no dicionario
             List<string> dictionaryPlaceHolder = new List<string>();
 
