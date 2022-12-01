@@ -8,4 +8,4 @@ Pedro Gabriel
 
 Carlos
 
-O arquivo de texto onde se localiza o dicionario é na pasta /bin/Debug/net6.0-windows
+O arquivo de texto onde se localiza o dicionario é na pasta /bin/Debug/net6.0-windows o arquivo se chama "Dicionario"
